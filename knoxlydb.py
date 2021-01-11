@@ -4,10 +4,10 @@ import random as rnd
 import random
 import cleantweet as ct
 
-datasets = ['datasets\\Health.csv', 'datasets\\Health2.csv', 'datasets\\Job.csv', 'datasets\\Politics.csv', 
-			'datasets\\Racism.csv', 'datasets\\Religion.csv', 'datasets\\Sexual Orientation.csv', 'datasets\\Travel.csv']
-datasets200 = ['datasets\\200\\Health.csv', 'datasets\\200\\Job.csv', 'datasets\\200\\Politics.csv', 'datasets\\200\\Racism.csv', 
-				'datasets\\200\\Religion.csv', 'datasets\\200\\Sexual Orientation.csv', 'datasets\\200\\Travel.csv']
+datasets = ['..\\datasets\\Health.csv', '..\\datasets\\Health2.csv', '..\\datasets\\Job.csv', '..\\datasets\\Politics.csv', 
+			'..\\datasets\\Racism.csv', '..\\datasets\\Religion.csv', '..\\datasets\\Sexual Orientation.csv', '..\\datasets\\Travel.csv']
+datasets200 = ['..\\datasets\\200\\Health.csv', '..\\datasets\\200\\Job.csv', '..\\datasets\\200\\Politics.csv', '..\\datasets\\200\\Racism.csv', 
+				'..\\datasets\\200\\Religion.csv', '..\\datasets\\200\\Sexual Orientation.csv', '..\\datasets\\200\\Travel.csv']
 row = []
 
 
