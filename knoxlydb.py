@@ -65,5 +65,3 @@ def check_sensibility(id_tweet, topic, guess):
 		return 1;
 	else:
 		return 0;
-
-	#return sens_count
