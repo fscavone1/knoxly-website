@@ -4,21 +4,20 @@ import random as rnd
 import random
 import cleantweet as ct
 
-datasets = ['..\\datasets\\Health.csv', '..\\datasets\\Health2.csv', '..\\datasets\\Job.csv', '..\\datasets\\Politics.csv', 
-			'..\\datasets\\Racism.csv', '..\\datasets\\Religion.csv', '..\\datasets\\Sexual Orientation.csv', '..\\datasets\\Travel.csv']
-datasets200 = ['..\\datasets\\200\\Health.csv', '..\\datasets\\200\\Job.csv', '..\\datasets\\200\\Politics.csv', '..\\datasets\\200\\Racism.csv', 
-				'..\\datasets\\200\\Religion.csv', '..\\datasets\\200\\Sexual Orientation.csv', '..\\datasets\\200\\Travel.csv']
+path = 'https://github.com/fscavone1/knoxly-website/tree/master/datasets/'
+datasets = ['Health.csv', 'Health2.csv', 'Job.csv', 'Politics.csv', 'Racism.csv', 'Religion.csv', 'Sexual Orientation.csv', 'Travel.csv']
+datasets200 = ['200/Health.csv', '200/Job.csv', '200/Politics.csv', '200/Racism.csv', '200/Religion.csv', '200/Sexual Orientation.csv', '200/Travel.csv']
 row = []
 
 
 def pick_random_row(dataset):
 	if '2.csv' in dataset:
-		topic = dataset.replace('..\\datasets\\','').replace('2.csv', '')
+		topic = dataset.replace('2.csv', '')
 	else:
-		topic = dataset.replace('..\\datasets\\','').replace('.csv', '')
-		if '200\\' in topic:
-			topic = topic.replace('200\\', '')
-	with open(dataset, 'rt', encoding="utf8") as f:
+		topic = dataset.replace('.csv', '')
+		if '200/' in topic:
+			topic = topic.replace('200/', '')
+	with open(path + dataset, 'rt', encoding="utf8") as f:
 		reader = csv.reader(f)
 		chosen_row = random.choice(list(reader))
 		#row.append(chosen_row)
@@ -57,7 +56,7 @@ def update_sensibility(id_tweet, sens):
 
 
 def check_sensibility(id_tweet, topic, guess):
-	df = pd.read_csv('..\\datasets\\200\\' + topic + '.csv')
+	df = pd.read_csv(path + '200/' + topic + '.csv')
 	index = df[df['ID']==id_tweet].index.values[0]
 	correct_sens = df.at[index, 'sensibile']
 	print(f'La sensibilità corretta è: {correct_sens}')
