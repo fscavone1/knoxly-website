@@ -1,2 +1,7 @@
 gunicorn==20.0.4
 Flask==1.1.2
+pandas==1.2.0
+numpy==1.16.0
+uuid==8.3.2
+zipfile==3.8
+pathlib==3.4
