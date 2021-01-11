@@ -13,9 +13,9 @@ row = []
 
 def pick_random_row(dataset):
 	if '2.csv' in dataset:
-		topic = dataset.replace('datasets\\','').replace('2.csv', '')
+		topic = dataset.replace('..\\datasets\\','').replace('2.csv', '')
 	else:
-		topic = dataset.replace('datasets\\','').replace('.csv', '')
+		topic = dataset.replace('..\\datasets\\','').replace('.csv', '')
 		if '200\\' in topic:
 			topic = topic.replace('200\\', '')
 	with open(dataset, 'rt', encoding="utf8") as f:
@@ -39,7 +39,7 @@ def get_from_db(type, index):
 
 
 def update_sensibility(id_tweet, sens):
-	df = pd.read_csv('datasets\\sensibility_dataset.csv')
+	df = pd.read_csv('..\\datasets\\sensibility_dataset.csv')
 	index = df[df['ID']==id_tweet].index.values
 	if not len(index):
 		if sens == 'Sensible' or sens == 'Racist':
@@ -57,7 +57,7 @@ def update_sensibility(id_tweet, sens):
 
 
 def check_sensibility(id_tweet, topic, guess):
-	df = pd.read_csv('datasets\\200\\' + topic + '.csv')
+	df = pd.read_csv('..\\datasets\\200\\' + topic + '.csv')
 	index = df[df['ID']==id_tweet].index.values[0]
 	correct_sens = df.at[index, 'sensibile']
 	print(f'La sensibilità corretta è: {correct_sens}')
