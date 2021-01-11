@@ -4,7 +4,7 @@ import random as rnd
 import random
 import cleantweet as ct
 
-path = 'https://github.com/fscavone1/knoxly-website/tree/master/datasets/'
+path = 'https://raw.githubusercontent.com/fscavone1/knoxly-website/master/datasets/'
 datasets = ['Health.csv', 'Health2.csv', 'Job.csv', 'Politics.csv', 'Racism.csv', 'Religion.csv', 'Sexual Orientation.csv', 'Travel.csv']
 datasets200 = ['200/Health.csv', '200/Job.csv', '200/Politics.csv', '200/Racism.csv', '200/Religion.csv', '200/Sexual Orientation.csv', '200/Travel.csv']
 row = []
