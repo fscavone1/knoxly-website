@@ -3,4 +3,4 @@ Flask==1.1.2
 pandas==1.1.5
 numpy==1.16.0
 uuid==1.30
-pathlib==3.4
+pathlib==1.0.1
