@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<!--
+	Fractal by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Knoxly - Preliminary Test</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='css/noscript.css') }}" /></noscript>
+	</head>
+	<body class="is-preload">
+		<form method="post" action="test{{id+1}}">
+		<!-- Questions -->
+			<header id="header">
+				<div class="test-box">
+					<div style="display: {{other_show}};">
+						<h3>Test #{{id}}</h3>
+						<p>Do you think this tweet about <b>{{topic}}</b><input type="hidden" name="topic" value="{{topic}}"> is sensible or not?</p>
+						<blockquote>{{tweet_text}}<input type="hidden" name="id_tweet" value="{{id_tweet}}"></blockquote>
+							<ul class="actions fit">
+								<li><input type="submit" class="button fit" name="sens-button" value="Sensible"></li>
+								<li><input type="submit" class="button fit" name="sens-button" value="Non-Sensible"></a></li>
+								<li><a href=test{{id+1}} class="button fit">Skip</a></li>
+							</ul>
+						<div class="bottom">
+							<span><a href=/ style="color: black;">I want to terminate my test.</a></span>
+							<span style="float: right;">Random ID: {{user_id}}</span>
+						</div>
+					</div>
+					<div style="display: {{racism_show}};">
+						<h3>Test #{{id}}</h3>
+						<p>Do you think this tweet is <b>Racist</b><input type="hidden" name="topic" value="Racism"> or not?</p>
+						<blockquote>{{tweet_text}}<input type="hidden" name="id_tweet" value="{{id_tweet}}"></blockquote>
+							<ul class="actions fit">
+								<li><input type="submit" class="button fit" name="sens-button" value="Racist"></li>
+								<li><input type="submit" class="button fit" name="sens-button" value="Non-Racist"></a></li>
+								<li><a href=test{{id+1}} class="button fit">Skip</a></li>
+							</ul>
+						<div class="bottom">
+							<span><a href=/ style="color: black;">I want to terminate my test.</a></span>
+							<span style="float: right;">Random ID: {{user_id}}</span>
+						</div>
+					</div>
+					<div style="display: {{pass_show}};">
+						<h2 style="color: black;"><i>Congratulation! You have passed the test!</i></h2>
+						<div style="text-align: center">
+							<img class='image' src="static/images/congratulation.gif"/>
+							<br><br>
+							<ul class="actions fit">
+								<li><a href=senstest1 class="button fit icon solid fa-play">Continue</a></li>
+								<li><a href=/ class="button fit icon solid fa-chevron-left scrolly">I don't want to continue</a></li>
+							</ul>
+						</div>
+					</div>
+					<div style="display: {{fail_show}};">
+						<h2 style="color: black;"><i>We're sorry... Your correct answers aren't enough to pass the test. But you can try again! </i></h2>
+						<div style="text-align: center">
+							<img class='image' src="static/images/fail.gif"/>
+							<br><br>
+							<ul class="actions fit">
+								<li><a href=guidelines class="button fit icon solid fa-chevron-left">Reread the guidelines</a></li>
+								<li><a href=test1 class="button fit icon solid fa-play">Redo the test</a></li>
+								<li><a href=/ class="button fit icon solid fa-chevron-left scrolly">I don't want to continue</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</header>
+	</form>
+		<!-- Footer -->
+			<footer id="footer">
+				<div style="height: 7em"><img src='static/images/unisa2.png' style="height: 100%"><img src='static/images/unisa_di2.png' style="height: 100%"></div>
+				</br>
+				<p class="copyright">Template credits: <a href="http://html5up.net">HTML5 UP</a></p>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="static/js/jquery.min.js"></script>
+			<script src="static/js/jquery.scrolly.min.js"></script>
+			<script src="static/js/browser.min.js"></script>
+			<script src="static/js/breakpoints.min.js"></script>
+			<script src="static/js/util.js"></script>
+			<script src="static/js/main.js"></script>
+
+	</body>
+</html>
