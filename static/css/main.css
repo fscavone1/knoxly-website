@@ -4289,3 +4289,17 @@ i
 			width: 100%;
 		}
 	}
+
+.thumb span{ 
+	visibility: hidden;
+	background-color: white;
+	border-radius: 6px;
+	position: absolute;
+	z-index: 1;
+	top: 15%;
+	left: 60%;
+}
+
+.thumb:hover span{ 
+	visibility:visible;
+}

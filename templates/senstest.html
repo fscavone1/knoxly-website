@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Knoxly - Sensibility Test</title>
+		<title>Knoxly - Sensitivity Test</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
@@ -17,15 +17,15 @@
 		<!-- Questions -->
 			<header id="header">
 				<div class="test-box">
-					<h3>Test #{{id}}</h3>
+					<h3>Test #{{id}}&ensp;<span class='thumb' style="float: right;"><img src='static/images/info.png' style="height: 0.8em; width: 0.8em;"><span><img src='static/images/senstable.png' style="height: 20em"></span>&ensp;Rules</span></h3>
 					<div style="display: {{other_show}};">
-						<p>Do you think this tweet about <b>{{topic}}</b> is sensible or not?</p>
-						<blockquote style="overflow-y: scroll; padding-right: 1.5em">{{tweet_text}}<input type="hidden" name="id_tweet" value="{{id_tweet}}"></blockquote>
-							<ul class="actions fit">
-								<li><input type="submit" class="button fit" name="sens-button" value="Sensible"></li>
-								<li><input type="submit" class="button fit" name="sens-button" value="Non-Sensible"></a></li>
-								<li><a href=senstest{{id+1}} class="button fit">Skip</a></li>
-							</ul>
+					<p>Do you think this tweet about <b>{{topic}}</b> is sensitive or not?</p>
+					<blockquote style="overflow-y: scroll; padding-right: 1.5em">{{tweet_text}}<input type="hidden" name="id_tweet" value="{{id_tweet}}"></blockquote>
+						<ul class="actions fit">
+							<li><input type="submit" class="button fit" name="sens-button" value="Sensitive"></li>
+							<li><input type="submit" class="button fit" name="sens-button" value="Non-Sensitive"></a></li>
+							<li><a href=senstest{{id+1}} class="button fit">Skip</a></li>
+						</ul>
 					</div>
 					<div style="display: {{racism_show}};">
 						<p>Do you think this tweet is <b>Racist</b> or not?</p>

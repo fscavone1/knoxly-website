@@ -18,12 +18,12 @@
 			<header id="header">
 				<div class="test-box">
 					<div style="display: {{other_show}};">
-						<h3>Test #{{id}}</h3>
-						<p>Do you think this tweet about <b>{{topic}}</b><input type="hidden" name="topic" value="{{topic}}"> is sensible or not?</p>
+						<h3>Test #{{id}}&ensp;<span class='thumb' style="float: right;"><img src='static/images/info.png' style="height: 0.8em; width: 0.8em;"><span><img src='static/images/senstable.png' style="height: 20em"></span>&ensp;Rules</span></h3>
+						<p>Do you think this tweet about <b>{{topic}}</b><input type="hidden" name="topic" value="{{topic}}"> is sensitive or not?</p>
 						<blockquote>{{tweet_text}}<input type="hidden" name="id_tweet" value="{{id_tweet}}"></blockquote>
 							<ul class="actions fit">
-								<li><input type="submit" class="button fit" name="sens-button" value="Sensible"></li>
-								<li><input type="submit" class="button fit" name="sens-button" value="Non-Sensible"></a></li>
+								<li><input type="submit" class="button fit" name="sens-button" value="Sensitive"></li>
+								<li><input type="submit" class="button fit" name="sens-button" value="Non-Sensitive"></a></li>
 								<li><a href=test{{id+1}} class="button fit">Skip</a></li>
 							</ul>
 						<div class="bottom">

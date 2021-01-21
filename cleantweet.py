@@ -2,7 +2,6 @@ import re
 import string
 import csv
 
-
 def strip_links(text):
     link_regex = re.compile('((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)', re.DOTALL)
     links = re.findall(link_regex, text)

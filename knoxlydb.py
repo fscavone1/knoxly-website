@@ -4,6 +4,7 @@ import random as rnd
 import random
 import cleantweet as ct
 
+
 datasets = ['./datasets/Health.csv', './datasets/Health2.csv', './datasets/Job.csv', './datasets/Politics.csv', 
 			'./datasets/Racism.csv', './datasets/Religion.csv', './datasets/Sexual Orientation.csv', './datasets/Travel.csv']
 datasets200 = ['./datasets/200/Health.csv', './datasets/200/Job.csv', './datasets/200/Politics.csv', './datasets/200/Racism.csv', 
@@ -21,7 +22,6 @@ def pick_random_row(dataset):
 	with open(dataset, 'rt', encoding="utf8") as f:
 		reader = csv.reader(f)
 		chosen_row = random.choice(list(reader))
-		#row.append(chosen_row)
 		return [chosen_row, topic]
 
 
@@ -38,30 +38,37 @@ def get_from_db(type, index):
 	return [tweet[0], cleaned_row, res[1]]
 
 
-def update_sensibility(id_tweet, sens):
-	df = pd.read_csv('./datasets/sensibility_dataset.csv')
-	index = df[df['ID']==id_tweet].index.values
-	if not len(index):
-		if sens == 'Sensible' or sens == 'Racist':
-			new_row = {'ID':id_tweet, 'sensible_count':1, 'non_sensible_count':0}
-			df = df.append(new_row, ignore_index=True)
-		elif sens == 'Non-Sensible' or sens == 'Non-Racist':
-			new_row = {'ID':id_tweet, 'sensible_count':0, 'non_sensible_count':1}
-			df = df.append(new_row, ignore_index=True)
+def update_sensitivity(id_tweet, sens, db, Sensitivity):
+
+	if sens == 'Sensitive' or sens == 'Racist':
+		count_sens = 1
+		count_non_sens = 0
+	elif sens == 'Non-Sensitive' or sens == 'Non-Racist':
+		count_sens = 0
+		count_non_sens = 1
+
+	if db.session.query(Sensitivity).filter(Sensitivity.id == id_tweet).count() == 0:
+		data = Sensitivity(id_tweet, count_sens, count_non_sens)
+		db.session.add(data)
+		db.session.commit()
 	else:
-		if sens == 'Sensible' or sens == 'Racist':
-			df.at[index[0], 'sensible_count'] += 1
-		elif sens == 'Non-Sensible' or sens == 'Non-Racist':
-			df.at[index[0], 'non_sensible_count'] += 1
-	df.to_csv('datasets/sensibility_dataset.csv', index=False)
+		update = Sensitivity.query.get(id_tweet)
+		update.sens_count = Sensitivity.query.get(id_tweet).sens_count + count_sens
+		update.non_sens_count = Sensitivity.query.get(id_tweet).non_sens_count + count_non_sens
+		db.session.commit()
 
 
-def check_sensibility(id_tweet, topic, guess):
+def check_sensitivity(id_tweet, topic, guess):
 	df = pd.read_csv('./datasets/200/' + topic + '.csv')
-	index = df[df['ID']==id_tweet].index.values[0]
+	index = df[df['ID'] == id_tweet].index.values[0]
 	correct_sens = df.at[index, 'sensibile']
-	print(f'La sensibilità corretta è: {correct_sens}')
 	if correct_sens == guess:
-		return 1;
+		return 1
 	else:
-		return 0;
+		return 0
+
+
+def add_contributor(user_id, db, Contributors):
+	data = Contributors(user_id)
+	db.session.add(data)
+	db.session.commit()

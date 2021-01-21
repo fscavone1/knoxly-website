@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, send_file
+from flask_sqlalchemy import SQLAlchemy
 import knoxlydb
 import uuid
 import zipfile
@@ -11,12 +12,40 @@ correct_answers = 0
 max_test = 7
 user_id = uuid.uuid1()
 
+app.debug = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://wrfdztetneolfz:b25a1aebdddb69d02efb9a8acef25aee8726a08fdc056d47ab8d448372c1b7ed@ec2-99-81-238-134.eu-west-1.compute.amazonaws.com:5432/d5ug0vjnlol6o1'
 
-@app.route("/")				#LINK
-def home():					#PAGINA
-	global counter
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+
+class Sensitivity(db.Model):
+	__tablename__ = 'sensitivity'
+	id = db.Column(db.String(30), primary_key=True)
+	sens_count = db.Column(db.Integer)
+	non_sens_count = db.Column(db.Integer)
+
+	def __init__(self, id, sens_count, non_sens_count):
+		self.id = id
+		self.sens_count = sens_count
+		self.non_sens_count = non_sens_count
+
+
+class Contributors(db.Model):
+	__tablename__ = 'contributors'
+	id = db.Column(db.Integer, primary_key=True)
+
+	def __init__(self, id):
+		self.id = id
+
+
+@app.route("/")
+def home():
+	global counter, user_id
 	counter = 0
-	return render_template('index.html') #HTML
+	while db.session.query(Contributors).filter(Contributors.id == user_id.int).count() > 0:
+		user_id = uuid.uuid1()
+	return render_template('index.html', contributors=db.session.query(Contributors.id).count())
 
 
 @app.route('/guidelines')
@@ -26,15 +55,15 @@ def guidelines():
 	return render_template('guidelines.html')
 
 
-@app.route("/senstest<id>", methods=['GET','POST'])
+@app.route("/senstest<id>", methods=['GET', 'POST'])
 def senstest(id):
 	global counter, racism_show, other_show
 
 	if request.method == 'POST':
 		id_tweet = request.form['id_tweet']
 		sens = request.form['sens-button']
-		if sens:
-			knoxlydb.update_sensibility(id_tweet, sens)
+		if sens and db.session.query(Contributors).filter(Contributors.id == user_id.int).count() > 0:
+			knoxlydb.update_sensitivity(id_tweet, sens, db, Sensitivity)
 
 	counter += 1
 	tweet = knoxlydb.get_from_db("senstest", 0);
@@ -58,11 +87,11 @@ def test(id):
 			topic = request.form['topic']
 			sens = request.form['sens-button']
 			if sens:
-				if sens == 'Sensible' or sens == 'Racist':
+				if sens == 'Sensitive' or sens == 'Racist':
 					guess = 1
-				elif sens == 'Non-Sensible' or sens == 'Non-Racist':
+				elif sens == 'Non-Sensitive' or sens == 'Non-Racist':
 					guess = 0
-				res = knoxlydb.check_sensibility(id_tweet, topic, guess)
+				res = knoxlydb.check_sensitivity(id_tweet, topic, guess)
 				correct_answers += res
 				print(f'Value of res: {res} Correct answers: {correct_answers} at iteration {counter}')
 
@@ -79,6 +108,7 @@ def test(id):
 
 	if correct_answers >= 5:
 		counter = 0
+		knoxlydb.add_contributor(user_id.int, db, Contributors)
 		return render_template('test.html', tweet_text='', user_id=user_id.int, id=0, id_tweet=0, topic='', racism_show='none', other_show='none', pass_show='inline', fail_show='none')
 
 	else:
@@ -88,19 +118,18 @@ def test(id):
 
 @app.route('/download-zip')
 def request_zip():
-    base_path = pathlib.Path('./datasets/')
-    data = io.BytesIO()
-    with zipfile.ZipFile(data, mode='w') as z:
-        for f_name in base_path.iterdir():
-            z.write(f_name)
-    data.seek(0)
-    return send_file(
-        data,
-        mimetype='application/zip',
-        as_attachment=True,
-        attachment_filename='data.zip'
-    )
-
+	base_path = pathlib.Path('./datasets/')
+	data = io.BytesIO()
+	with zipfile.ZipFile(data, mode='w') as z:
+		for f_name in base_path.iterdir():
+			z.write(f_name)
+	data.seek(0)
+	return send_file(
+		data,
+		mimetype='application/zip',
+		as_attachment=True,
+		attachment_filename='data.zip'
+	)
 
 
 if __name__ == "__main__":
