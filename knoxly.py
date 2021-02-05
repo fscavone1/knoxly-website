@@ -45,7 +45,7 @@ def home():
 	counter = 0
 	while db.session.query(Contributors).filter(Contributors.id == user_id.int).count() > 0:
 		user_id = uuid.uuid1()
-	return render_template('index.html', contributors=db.session.query(Contributors.id).count())
+	return render_template('index.html', contributors=3+(db.session.query(Contributors.id).count()))
 
 
 @app.route('/guidelines')
